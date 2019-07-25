@@ -1,7 +1,7 @@
 # golang-index
 
 
-基础知识
+- 基础知识
     - [01、goPath和goRoot](./19年/07月/01、goPath和goRoot/01、goPath和goRoot.md)
     - [02、项目运行](./19年/07月/02、项目运行/02、项目运行.md)
     - [03、golang指针](./19年/07月/03、golang指针/03、指针.md)
@@ -19,9 +19,12 @@
     - [15、golang 获取get参数](https://www.cnblogs.com/Dennis-mi/p/8495175.html)
     - [16、设置cookie的两种方法](https://www.cnblogs.com/limozi/p/8251713.html)
     - [17、Golang Cookie 简介](https://www.jianshu.com/p/3b84aec28855)
+    - [18、结构体struct & 接口Interface & 反射reflect](https://www.cnblogs.com/suoning/p/7145458.html)
+    - [19、golang 设置 http response 响应头与坑](https://www.jianshu.com/p/4a26a4681464)
+    - [20、Golang字符串处理以及文件操作](https://www.cnblogs.com/yinzhengjie/p/7043430.html)
+    - [21、Golang中的字符串处理总结](https://my.oschina.net/u/3625745/blog/3007674)
     
     
-    
-常用模块与库与框架
+- 常用模块与库与框架
     - [A high performance HTTP request router](https://github.com/julienschmidt/httprouter)
     - [iris](https://github.com/kataras/iris)
