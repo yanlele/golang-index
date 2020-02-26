@@ -8,7 +8,7 @@ func main() {
 		arr[i] = i + 1
 	}
 
-	fmt.Println(arr)
+	fmt.Println(arr[:0])
 
 	fmt.Println(arr[:20])
 	fmt.Println(arr[20:])
