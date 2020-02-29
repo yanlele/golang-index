@@ -1,4 +1,4 @@
-package main
+package core
 import (
 	"fmt"
 	"os"
@@ -15,6 +15,6 @@ func (f *consoleWriter) Write(data interface{}) error {
 }
 
 // 创建民领航写入器实例
-func newConsoleWriter() *consoleWriter {
+func NewConsoleWriter() *consoleWriter {
 	return &consoleWriter{}
 }

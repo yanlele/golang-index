@@ -1,4 +1,4 @@
-package main
+package core
 
 import (
 	"errors"
@@ -37,6 +37,6 @@ func (f *fileWriter) Write(data interface{}) error {
 }
 
 // 创建文件写入器实例
-func newFileWriter() *fileWriter {
+func NewFileWriter() *fileWriter {
 	return &fileWriter{}
 }

@@ -1,4 +1,4 @@
-package main
+package core
 
 type LogWriter interface {
 	Write(data interface{}) error
@@ -20,6 +20,6 @@ func (l *Logger) Log(data interface{}) {
 	}
 }
 
-func newLogger() *Logger {
+func NewLogger() *Logger {
 	return &Logger{}
 }
