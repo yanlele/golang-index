@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Command struct {
 	Name    string
 	Var     *int
@@ -23,4 +25,7 @@ func main() {
 		Var:     &version,
 		Comment: "show version",
 	}
+
+	fmt.Println(cmd.Name)
+	fmt.Println(cmd2.Name)
 }
