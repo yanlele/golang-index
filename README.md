@@ -23,6 +23,7 @@
     - [golang 设置 http response 响应头与坑](https://www.jianshu.com/p/4a26a4681464)
     - [Golang字符串处理以及文件操作](https://www.cnblogs.com/yinzhengjie/p/7043430.html)
     - [Golang中的字符串处理总结](https://my.oschina.net/u/3625745/blog/3007674)
+    - [使用go module导入本地包](https://zhuanlan.zhihu.com/p/109828249)
     
     
 - 常用模块与库与框架
