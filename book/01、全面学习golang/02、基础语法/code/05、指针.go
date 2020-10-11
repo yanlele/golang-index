@@ -20,6 +20,7 @@ func setAddressPoint(address *string) string {
 }
 
 func main() {
-	setAddressPoint(&address)
+	//setAddressPoint(&address)
+	fmt.Println(setAddress(address))
 	fmt.Println(address)
 }

@@ -23,8 +23,10 @@ type Vehicle struct {
 func main() {
 	var a Vehicle
 	a.FakeBrand.name = "yanle"
-
 	a.FakeBrand.Show()
+
+	a.Brand.name = "lelele"
+	a.Brand.Show()
 
 	ta := reflect.TypeOf(a)
 
