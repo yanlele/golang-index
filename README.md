@@ -24,6 +24,8 @@
     - [Golang字符串处理以及文件操作](https://www.cnblogs.com/yinzhengjie/p/7043430.html)
     - [Golang中的字符串处理总结](https://my.oschina.net/u/3625745/blog/3007674)
     - [使用go module导入本地包](https://zhuanlan.zhihu.com/p/109828249)
+    - [写消息队列(golang-channel实现)](https://juejin.im/post/6874194268236447751)
+    - [Go语言的30个常用文件操作，总有一个你用的着](https://juejin.im/post/6878117337820561421)
     
     
 - 常用模块与库与框架
