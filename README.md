@@ -5,12 +5,12 @@
 
 ### 环境运行篇
 
-- [goPath和goRoot](./19年/07月/01、goPath和goRoot/01、goPath和goRoot.md)
-- [项目运行](./19年/07月/02、项目运行/02、项目运行.md)
+- [goPath和goRoot](./docs/19年/07月/01、goPath和goRoot/01、goPath和goRoot.md)
+- [项目运行](./docs/19年/07月/02、项目运行/02、项目运行.md)
 - [使用go module导入本地包](https://zhuanlan.zhihu.com/p/109828249)
 
 ### 基础语法篇
-- [golang指针](./19年/07月/03、golang指针/03、指针.md)
+- [golang指针](./docs/19年/07月/03、golang指针/03、指针.md)
 - [golang 数据类型之间的转换](https://blog.csdn.net/sinat_34322082/article/details/81106091)
 - [Golang教程：指针](https://www.cnblogs.com/liuzhongchao/p/9168127.html)
 - [Golang 中的指针 - Pointer](https://www.cnblogs.com/jasonxuli/p/6802289.html)
@@ -39,10 +39,17 @@
 ## 专题篇
 
 
-## 实战篇
+## 参考项目
 - [Golang 入门实践项目loafer(安全摸鱼+理财)](https://juejin.im/post/6861970298943029262)
+- [基于gin+gorm开发的个人博客项目: wblog](https://github.com/wangsongyan/wblog)
+- [Gin + GORM + Casbin + vue-element-admin 实现的权限管理系统(golang)](https://github.com/it234/goapp)
+- [Go语言实战流媒体视频网站](https://github.com/alanhou/golang-streaming)
+- [工单系统: ferry](https://github.com/lanyulei/ferry)
+- [基于go语言gin框架封装的web项目骨架: GoSkeleton](https://gitee.com/daitougege/GinSkeleton)
+- [gin+vue实现前后端分离商城管理后台之gin部分](https://gitee.com/zhangyafeii/gin-shop-admin)
+- [go-admin](https://github.com/go-admin-team/go-admin)
 
-    
+
     
 - 常用模块与库与框架
     - [A high performance HTTP request router](https://github.com/julienschmidt/httprouter)
