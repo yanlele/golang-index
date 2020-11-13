@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"golang-index/book/01、全面学习golang/07、包管理/01、封装/modal"
+	"go-index/book/01、全面学习golang/07、包管理/01、封装/modal"
 )
 
 func main() {
