@@ -8,6 +8,7 @@
 - [goPath和goRoot](./docs/19年/07月/01、goPath和goRoot/01、goPath和goRoot.md)
 - [项目运行](./docs/19年/07月/02、项目运行/02、项目运行.md)
 - [使用go module导入本地包](https://zhuanlan.zhihu.com/p/109828249)
+- [go mod使用](https://www.jianshu.com/p/760c97ff644c)
 
 ### 基础语法篇
 - [golang指针](./docs/19年/07月/03、golang指针/03、指针.md)
