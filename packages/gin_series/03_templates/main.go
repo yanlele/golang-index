@@ -1,6 +1,6 @@
 package main
 
-import "go-index/packages/gin_series/02_router/initRouter"
+import "go-index/packages/gin_series/03_templates/initRouter"
 
 func main() {
 	router := initRouter.SetupRouter()

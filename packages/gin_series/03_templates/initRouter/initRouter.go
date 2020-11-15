@@ -2,26 +2,28 @@ package initRouter
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-index/packages/gin_series/02_router/handler"
-	"net/http"
-	"strings"
+	"go-index/packages/gin_series/03_templates/handler"
 )
 
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
+	if mode := gin.Mode(); mode == gin.TestMode {
+		router.LoadHTMLGlob("./../templates/*")
+	} else {
+		router.LoadHTMLGlob("templates/*")
+	}
+	router.StaticFile("/favicon.ico", "./favicon.ico")
+	router.Static("/statics", "./statics")
 	index := router.Group("/")
 	{
-		index.Any("", retHelloGinAndMethod)
+		index.Any("", handler.Index)
 	}
-
+	// 添加 user
 	userRouter := router.Group("/user")
 	{
 		userRouter.GET("/:name", handler.UserSave)
-		userRouter.GET("/", handler.UserSaveByQuery)
+		userRouter.GET("", handler.UserSaveByQuery)
 	}
-	return router
-}
 
-func retHelloGinAndMethod(context *gin.Context) {
-	context.String(http.StatusOK, "hello gin "+strings.ToLower(context.Request.Method)+" method")
+	return router
 }
