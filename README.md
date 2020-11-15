@@ -38,7 +38,7 @@
 
 
 ## 专题篇
-- [gin 系列文章](https://juejin.im/user/4195392100252638/posts)
+- [gin 系列文章: Hello Gin](https://github.com/youngxhui/GinHello/tree/gin-router)
 
 
 ## 参考项目
