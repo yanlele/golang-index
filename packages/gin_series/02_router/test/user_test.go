@@ -40,3 +40,4 @@ func TestUserSaveWithNotAge(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Equal(t, "用户:"+username+",年龄:20已经保存", w.Body.String())
 }
+
