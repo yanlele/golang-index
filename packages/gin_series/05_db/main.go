@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-index/packages/gin_series/04_form/initRouter"
+	"go-index/packages/gin_series/05_db/initRouter"
 )
 
 func main() {
