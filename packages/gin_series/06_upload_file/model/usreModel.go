@@ -1,14 +1,16 @@
 package model
 
 import (
+	"database/sql"
 	"go-index/packages/gin_series/06_upload_file/initDB"
 	"log"
 )
 
 type UserModel struct {
-	Id       int64  `form:"id"`
-	Email    string `form:"email" binding:"email"`
-	Password string `form:"password"`
+	Id       int64          `form:"id"`
+	Email    string         `form:"email" binding:"email"`
+	Password string         `form:"password"`
+	Avatar   sql.NullString `form:"avatar"`
 }
 
 func (user *UserModel) Save() int64 {
@@ -31,4 +33,14 @@ func (user *UserModel) QueryByEmail() UserModel {
 		log.Panicln(e)
 	}
 	return u
+}
+
+func (user *UserModel) QueryById(id int) (UserModel, error) {
+	u := UserModel{}
+	row := initDB.Db.QueryRow("select * from user where id = ?;", id)
+	e := row.Scan(&u.Id, &u.Password, &u.Avatar)
+	if e != nil {
+		log.Println(e)
+	}
+	return u, e
 }

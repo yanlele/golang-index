@@ -51,3 +51,8 @@ func UserLogin(context *gin.Context) {
 		})
 	}
 }
+
+func UpdateUserProfile(context *gin.Context) {
+	var user model.UserModel
+
+}
