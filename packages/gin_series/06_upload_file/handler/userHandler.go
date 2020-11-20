@@ -59,6 +59,21 @@ func UserLogin(context *gin.Context) {
 	}
 }
 
+func UserProFile(context *gin.Context) {
+	id := context.Query("id")
+	var user model.UserModel
+	i, err := strconv.Atoi(id)
+	u, e := user.QueryById(i)
+	if e != nil || err != nil {
+		context.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"error": e,
+		})
+	}
+	context.HTML(http.StatusOK, "user_profile,tmpl", gin.H{
+		"user": u,
+	})
+}
+
 func UpdateUserProfile(context *gin.Context) {
 	var user model.UserModel
 	if err := context.ShouldBind(&user); err != nil {
