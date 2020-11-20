@@ -7,7 +7,7 @@ import (
 )
 
 type UserModel struct {
-	Id       int64          `form:"id"`
+	Id       int            `form:"id"`
 	Email    string         `form:"email" binding:"email"`
 	Password string         `form:"password"`
 	Avatar   sql.NullString `form:"avatar"`

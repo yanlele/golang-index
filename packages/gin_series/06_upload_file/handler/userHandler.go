@@ -1,10 +1,17 @@
 package handler
 
 import (
+	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-index/packages/gin_series/06_upload_file/model"
+	"go-index/packages/gin_series/06_upload_file/utils"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strconv"
+	"time"
 )
 
 func UserSave(context *gin.Context) {
@@ -67,5 +74,31 @@ func UpdateUserProfile(context *gin.Context) {
 		})
 		log.Panicln("文件上传错误", e.Error())
 	}
-
+	path := utils.RootPath()
+	path = filepath.Join(path, "avatar")
+	fmt.Println("path =>", path)
+	e = os.MkdirAll(path, os.ModePerm)
+	if e != nil {
+		context.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"error": e,
+		})
+		log.Panicln("无法创建文件夹", e.Error())
+	}
+	fileName := strconv.FormatInt(time.Now().Unix(), 10) + file.Filename
+	e = context.SaveUploadedFile(file, filepath.Join(path, fileName))
+	if e != nil {
+		context.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"error": e,
+		})
+		log.Panicln("无法保存文件", e.Error())
+	}
+	avatarUrl := "/avatar/" + fileName
+	user.Avatar = sql.NullString{String: avatarUrl}
+	e = user.Update(user.Id)
+	if e != nil {
+		context.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"error": e,
+		})
+	}
+	context.Redirect(http.StatusMovedPermanently, "/user/profiled?id"+strconv.Itoa(user.Id))
 }
