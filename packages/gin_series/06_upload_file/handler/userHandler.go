@@ -72,7 +72,7 @@ func UserProFile(context *gin.Context) {
 	context.HTML(http.StatusOK, "user_profile,tmpl", gin.H{
 		"user": u,
 	})
-}
+}																						
 
 func UpdateUserProfile(context *gin.Context) {
 	var user model.UserModel
