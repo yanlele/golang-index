@@ -54,5 +54,18 @@ func UserLogin(context *gin.Context) {
 
 func UpdateUserProfile(context *gin.Context) {
 	var user model.UserModel
+	if err := context.ShouldBind(&user); err != nil {
+		context.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"error": err,
+		})
+		log.Panicln("绑定数据发生错误", err.Error())
+	}
+	file, e := context.FormFile("avatar-file")
+	if e != nil {
+		context.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"error": e,
+		})
+		log.Panicln("文件上传错误", e.Error())
+	}
 
 }
