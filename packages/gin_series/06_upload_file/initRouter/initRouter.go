@@ -10,7 +10,7 @@ func SetupRouter() *gin.Engine {
 	if mode := gin.Mode(); mode == gin.TestMode {
 		router.LoadHTMLGlob("../templates/*")
 	} else {
-		router.LoadHTMLGlob("packages/gin_series/05_db/templates/*")
+		router.LoadHTMLGlob("packages/gin_series/06_upload_file/templates/*")
 	}
 	router.StaticFile("/favicon.ico", "packages/gin_series/03_templates/favicon.ico")
 	router.Static("/statics", "packages/gin_series/03_templates/statics")
