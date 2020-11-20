@@ -44,3 +44,15 @@ func (user *UserModel) QueryById(id int) (UserModel, error) {
 	}
 	return u, e
 }
+
+func (user *UserModel) Update(id int) error {
+	var stmt, e = initDB.Db.Prepare("update user set password=?, avatar=? where id = ?")
+	if e != nil {
+		log.Panicln("发生了错误", e.Error())
+	}
+	_, e = stmt.Exec(user.Password, user.Avatar.String, user.Id)
+	if e != nil {
+		log.Panicln("错误 e", e.Error())
+	}
+	return e
+}
