@@ -115,5 +115,5 @@ func UpdateUserProfile(context *gin.Context) {
 			"error": e,
 		})
 	}
-	context.Redirect(http.StatusMovedPermanently, "/user/profiled?id"+strconv.Itoa(user.Id))
+	context.Redirect(http.StatusMovedPermanently, "/user/profile?id="+strconv.Itoa(user.Id))
 }
