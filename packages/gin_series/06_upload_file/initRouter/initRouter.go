@@ -3,6 +3,9 @@ package initRouter
 import (
 	"github.com/gin-gonic/gin"
 	"go-index/packages/gin_series/06_upload_file/handler"
+	"go-index/packages/gin_series/06_upload_file/utils"
+	"net/http"
+	"path/filepath"
 )
 
 func SetupRouter() *gin.Engine {
@@ -14,6 +17,9 @@ func SetupRouter() *gin.Engine {
 	}
 	router.StaticFile("/favicon.ico", "packages/gin_series/03_templates/favicon.ico")
 	router.Static("/statics", "packages/gin_series/03_templates/statics")
+
+	// 添加头像静态文件的位置
+	router.StaticFS("/avatar", http.Dir(filepath.Join(utils.RootPath(), "avatar")))
 	index := router.Group("/")
 	{
 		index.Any("", handler.Index)
