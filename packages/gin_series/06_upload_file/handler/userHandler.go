@@ -70,6 +70,7 @@ func UserProFile(context *gin.Context) {
 			"error": e,
 		})
 	}
+	log.Println("u: ", u)
 	context.HTML(http.StatusOK, "user_profile.tmpl", gin.H{
 		"user": u,
 	})

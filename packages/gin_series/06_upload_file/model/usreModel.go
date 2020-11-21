@@ -38,9 +38,9 @@ func (user *UserModel) QueryByEmail() UserModel {
 func (user *UserModel) QueryById(id int) (UserModel, error) {
 	u := UserModel{}
 	row := initDB.Db.QueryRow("select * from user where id = ?;", id)
-	e := row.Scan(&u.Id, &u.Password, &u.Avatar)
+	e := row.Scan(&u.Id, &u.Email, &u.Password, &u.Avatar)
 	if e != nil {
-		log.Println(e)
+		log.Panicln(e)
 	}
 	return u, e
 }
