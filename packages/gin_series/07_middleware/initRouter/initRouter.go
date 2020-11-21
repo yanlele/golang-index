@@ -31,8 +31,8 @@ func SetupRouter() *gin.Engine {
 	{
 		userRouter.POST("/register", handler.UserRegister)
 		userRouter.POST("/login", handler.UserLogin)
-		userRouter.GET("/profile/", handler.UserProFile)
-		userRouter.POST("/update", handler.UpdateUserProfile)
+		userRouter.GET("/profile/", middleware.Auth(), handler.UserProFile)
+		userRouter.POST("/update", middleware.Auth(), handler.UpdateUserProfile)
 	}
 
 	return router
