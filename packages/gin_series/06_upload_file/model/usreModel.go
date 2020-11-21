@@ -28,7 +28,7 @@ func (user *UserModel) Save() int64 {
 func (user *UserModel) QueryByEmail() UserModel {
 	u := UserModel{}
 	row := initDB.Db.QueryRow("select * from user where email = ?;", user.Email)
-	e := row.Scan(&u.Id, &u.Email, &u.Password)
+	e := row.Scan(&u.Id, &u.Email, &u.Password, &u.Avatar)
 	if e != nil {
 		log.Panicln(e)
 	}
