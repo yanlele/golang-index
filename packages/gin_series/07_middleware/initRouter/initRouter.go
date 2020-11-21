@@ -3,13 +3,15 @@ package initRouter
 import (
 	"github.com/gin-gonic/gin"
 	"go-index/packages/gin_series/07_middleware/handler"
+	"go-index/packages/gin_series/07_middleware/middleware"
 	"go-index/packages/gin_series/07_middleware/utils"
 	"net/http"
 	"path/filepath"
 )
 
 func SetupRouter() *gin.Engine {
-	router := gin.Default()
+	router := gin.New()
+	router.Use(middleware.Logger(), gin.Recovery())
 	if mode := gin.Mode(); mode == gin.TestMode {
 		router.LoadHTMLGlob("../templates/*")
 	} else {
