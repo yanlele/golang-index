@@ -53,6 +53,7 @@ func UserLogin(context *gin.Context) {
 	log.Println("currentUser: ", currentUser.Email)
 	if currentUser.Password == user.Password {
 		log.Println("登录成功", currentUser.Email)
+		context.SetCookie("user_cookie", string(currentUser.Id), 1000, "/", "127.0.0.1", false, true)
 		context.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"email": currentUser.Email,
 			"id":    currentUser.Id,
@@ -71,7 +72,7 @@ func UserProFile(context *gin.Context) {
 		})
 	}
 	context.HTML(http.StatusOK, "user_profile.tmpl", gin.H{
-		"user":  u,
+		"user": u,
 	})
 }
 
