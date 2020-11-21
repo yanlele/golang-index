@@ -12,8 +12,8 @@ func SetupRouter() *gin.Engine {
 	} else {
 		router.LoadHTMLGlob("packages/gin_series/05_db/templates/*")
 	}
-	router.StaticFile("/favicon.ico", "packages/gin_series/03_templates/favicon.ico")
-	router.Static("/statics", "packages/gin_series/03_templates/statics")
+	router.StaticFile("/favicon.ico", "packages/gin_series/statics/favicon.ico")
+	router.Static("/statics", "packages/gin_series/statics")
 	index := router.Group("/")
 	{
 		index.Any("", handler.Index)

@@ -2,7 +2,10 @@ package initRouter
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-index/packages/gin_series/04_form/handler"
+	"go-index/packages/gin_series/07_middleware/handler"
+	"go-index/packages/gin_series/07_middleware/utils"
+	"net/http"
+	"path/filepath"
 )
 
 func SetupRouter() *gin.Engine {
@@ -10,10 +13,13 @@ func SetupRouter() *gin.Engine {
 	if mode := gin.Mode(); mode == gin.TestMode {
 		router.LoadHTMLGlob("../templates/*")
 	} else {
-		router.LoadHTMLGlob("packages/gin_series/04_form/templates/*")
+		router.LoadHTMLGlob("packages/gin_series/07_middleware/templates/*")
 	}
 	router.StaticFile("/favicon.ico", "packages/gin_series/statics/favicon.ico")
 	router.Static("/statics", "packages/gin_series/statics")
+
+	// 添加头像静态文件的位置
+	router.StaticFS("/avatar", http.Dir(filepath.Join(utils.RootPath(), "avatar")))
 	index := router.Group("/")
 	{
 		index.Any("", handler.Index)
@@ -21,9 +27,10 @@ func SetupRouter() *gin.Engine {
 	// 添加 user
 	userRouter := router.Group("/user")
 	{
-		userRouter.GET("/:name", handler.UserSave)
-		userRouter.GET("", handler.UserSaveByQuery)
 		userRouter.POST("/register", handler.UserRegister)
+		userRouter.POST("/login", handler.UserLogin)
+		userRouter.GET("/profile/", handler.UserProFile)
+		userRouter.POST("/update", handler.UpdateUserProfile)
 	}
 
 	return router
