@@ -4,20 +4,40 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"go-index/packages/gin_series/12_jwt/config"
+	"go-index/packages/gin_series/12_jwt/model"
+	"log"
 	"net/http"
+	"strings"
 )
 
 func Auth() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		println("已经授权")
-		cookie, e := context.Request.Cookie("user_cookie")
-		if e == nil {
-			context.SetCookie(cookie.Name, cookie.Value, 1000, cookie.Path, cookie.Domain, cookie.Secure, cookie.HttpOnly)
-			context.Next()
-		} else {
-			context.Abort()
-			context.HTML(http.StatusUnauthorized, "401.tmpl", nil)
+		result := model.Result{
+			Code:    http.StatusUnauthorized,
+			Message: "无法认证， 请重新登录",
+			Data:    nil,
 		}
+		auth := context.Request.Header.Get("Authorization")
+		if len(auth) == 0 {
+			context.Abort()
+			context.JSON(http.StatusUnauthorized, gin.H{
+				"result": result,
+			})
+		}
+		auth = strings.Fields(auth)[1]
+
+		// 验证token
+		_, err := parseToken(auth)
+		if err != nil {
+			context.Abort()
+			result.Message = "token 过期" + err.Error()
+			context.JSON(http.StatusUnauthorized, gin.H{
+				"result": result,
+			})
+		} else {
+			log.Println("token 正确")
+		}
+		context.Next()
 	}
 }
 

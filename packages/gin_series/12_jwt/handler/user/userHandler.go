@@ -9,26 +9,25 @@ import (
 	"time"
 )
 
-func CreateJwt(context *gin.Context) {
-	// 获取用户信息
+func CreateJwt(ctx *gin.Context) {
+	// 获取用户
 	user := &model.User{}
 	result := &model.Result{
-		Code:    http.StatusOK,
+		Code:    200,
 		Message: "登录成功",
 		Data:    nil,
 	}
-	e := context.BindJSON(&user)
-	if e != nil {
+	if e := ctx.BindJSON(&user); e != nil {
 		result.Message = "数据绑定失败"
 		result.Code = http.StatusUnauthorized
-		context.JSON(http.StatusUnauthorized, gin.H{
+		ctx.JSON(http.StatusUnauthorized, gin.H{
 			"result": result,
 		})
+		return
 	}
-
 	u := user.QueryByUsername()
 	if u.Password == user.Password {
-		expiresTime := time.Now().Unix() + int64(config.OndDayOfHours)
+		expiresTime := time.Now().Unix() + int64(config.OneDayOfHours)
 		claims := jwt.StandardClaims{
 			Audience:  user.Username,     // 受众
 			ExpiresAt: expiresTime,       // 失效时间
@@ -40,55 +39,54 @@ func CreateJwt(context *gin.Context) {
 		}
 		var jwtSecret = []byte(config.Secret)
 		tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-		token, err := tokenClaims.SignedString(jwtSecret)
-		if err == nil {
+		if token, err := tokenClaims.SignedString(jwtSecret); err == nil {
 			result.Message = "登录成功"
-			result.Data = "bearer " + token
+			result.Data = "Bearer " + token
 			result.Code = http.StatusOK
-			context.JSON(http.StatusOK, gin.H{
+			ctx.JSON(result.Code, gin.H{
 				"result": result,
 			})
 		} else {
 			result.Message = "登录失败"
 			result.Code = http.StatusOK
-			context.JSON(result.Code, gin.H{
+			ctx.JSON(result.Code, gin.H{
 				"result": result,
 			})
 		}
 	} else {
 		result.Message = "登录失败"
 		result.Code = http.StatusOK
-		context.JSON(result.Code, gin.H{
+		ctx.JSON(result.Code, gin.H{
 			"result": result,
 		})
 	}
 }
 
-func Register(context *gin.Context) {
+func Register(ctx *gin.Context) {
 	user := model.User{}
 	result := &model.Result{
-		Code:    http.StatusOK,
+		Code:    200,
 		Message: "登录成功",
 		Data:    nil,
 	}
-	e := context.BindJSON(&user)
-	if e != nil {
-		result.Message = "绑定数据失败"
+	if e := ctx.BindJSON(&user); e != nil {
+		result.Message = "数据绑定失败"
 		result.Code = http.StatusUnauthorized
-		context.JSON(http.StatusUnauthorized, gin.H{
+		ctx.JSON(http.StatusUnauthorized, gin.H{
 			"result": result,
 		})
 	}
+
 	if user.Insert() {
 		result.Message = "注册成功"
 		result.Code = http.StatusOK
-		context.JSON(http.StatusOK, gin.H{
+		ctx.JSON(http.StatusOK, gin.H{
 			"result": result,
 		})
 	} else {
 		result.Message = "注册失败"
 		result.Code = http.StatusOK
-		context.JSON(http.StatusOK, gin.H{
+		ctx.JSON(http.StatusOK, gin.H{
 			"result": result,
 		})
 	}
