@@ -89,7 +89,7 @@ func Register(context *gin.Context) {
 		result.Message = "注册失败"
 		result.Code = http.StatusOK
 		context.JSON(http.StatusOK, gin.H{
-			"result": result
+			"result": result,
 		})
 	}
 }
