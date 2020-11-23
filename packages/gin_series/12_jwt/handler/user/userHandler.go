@@ -63,3 +63,33 @@ func CreateJwt(context *gin.Context) {
 		})
 	}
 }
+
+func Register(context *gin.Context) {
+	user := model.User{}
+	result := &model.Result{
+		Code:    http.StatusOK,
+		Message: "登录成功",
+		Data:    nil,
+	}
+	e := context.BindJSON(&user)
+	if e != nil {
+		result.Message = "绑定数据失败"
+		result.Code = http.StatusUnauthorized
+		context.JSON(http.StatusUnauthorized, gin.H{
+			"result": result,
+		})
+	}
+	if user.Insert() {
+		result.Message = "注册成功"
+		result.Code = http.StatusOK
+		context.JSON(http.StatusOK, gin.H{
+			"result": result,
+		})
+	} else {
+		result.Message = "注册失败"
+		result.Code = http.StatusOK
+		context.JSON(http.StatusOK, gin.H{
+			"result": result
+		})
+	}
+}
