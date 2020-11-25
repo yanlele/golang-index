@@ -37,9 +37,14 @@ func CreateJwt(ctx *gin.Context) {
 			NotBefore: time.Now().Unix(), // 生效时间
 			Subject:   "login",           // 主题
 		}
-		var jwtSecret = []byte(config.Secret)
+
 		tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-		if token, err := tokenClaims.SignedString(jwtSecret); err == nil {
+
+		// 通过密码和保留字段加密
+		var jwtSecret = []byte(config.Secret + u.Password)
+		token, err := tokenClaims.SignedString(jwtSecret)
+
+		if err == nil {
 			result.Message = "登录成功"
 			result.Data = "Bearer " + token
 			result.Code = http.StatusOK

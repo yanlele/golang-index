@@ -2,8 +2,8 @@ package initRouter
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-index/packages/gin_series/08_cookies/middleware"
 	"go-index/packages/gin_series/12_jwt/handler/user"
+	"go-index/packages/gin_series/12_jwt/middleware"
 	"net/http"
 	"time"
 )

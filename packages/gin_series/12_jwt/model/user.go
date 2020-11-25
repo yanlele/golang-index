@@ -30,3 +30,9 @@ func (user User) Insert() bool {
 	}
 	return false
 }
+
+func (user User) QueryById() User {
+	initDB.Db.First(&user)
+	return user
+}
+
