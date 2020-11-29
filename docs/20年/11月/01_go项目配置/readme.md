@@ -62,3 +62,100 @@ config.Get().DSN
 
 
 ### 配置方式二：ini
+安装依赖包： `go get -u github.com/go-ini/ini`
+
+添加配置文件：app.ini
+```ini
+# debug or release
+RUN_MODE = debug
+
+[app]
+PAGE_SIZE = 10
+JWT_SECRET = 23347$040412
+
+[server]
+HTTP_PORT = 8000
+READ_TIMEOUT = 60
+WRITE_TIMEOUT = 60
+
+[database]
+TYPE = mysql
+USER = root
+PASSWORD = 123456
+#127.0.0.1:3306
+HOST = 127.0.0.1:3306
+NAME = blog
+TABLE_PREFIX = blog_
+```
+
+解析配置文件： setting.go
+```go
+package setting
+
+import (
+	"github.com/go-ini/ini"
+	"log"
+	"time"
+)
+
+var (
+	Cig          *ini.File
+	RunMode      string
+	HTTPPort     int
+	ReadTimeout  time.Duration
+	WriteTimeout time.Duration
+	PageSize     int
+	JwtSecret    string
+)
+
+func init() {
+	var err error
+	Cig, err = ini.Load("conf/app.ini")
+	if err != nil {
+		log.Fatalf("加载初始化文件 'conf/app.ini' 文件失败: %v", err)
+	}
+}
+
+func LoadBase() {
+	RunMode = Cig.Section("").Key("RUN_MODE").MustString("debug")
+}
+
+func LoadServer() {
+	sec, err := Cig.GetSection("server")
+	if err != nil {
+		log.Fatalf("Fail to get section 'server': %v", err)
+	}
+	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
+	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
+	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
+}
+
+func LoadApp() {
+	sec, err := Cig.GetSection("app")
+	if err != nil {
+		log.Fatalf("Fail to get section 'app': %v", err)
+	}
+	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
+	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
+}
+```
+
+使用：                             
+方式一
+```go
+setting.PageSize
+```
+
+方式2：                                
+```go
+sec, err := setting.Cig.GetSection("database")
+if err != nil {
+    log.Fatalf("Fail to get section 'databse': %v", err)
+}
+//dbType = sec.Key("TYPE").MustString("mysql")
+dbName = sec.Key("NAME").MustString("blog")
+user = sec.Key("USER").MustString("root")
+password = sec.Key("PASSWORD").String()
+host = sec.Key("HOST").String()
+tablePrefix = sec.Key("TABLE_PREFIX").String()
+```
