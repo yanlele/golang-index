@@ -202,3 +202,5 @@ func InitRouter() *gin.Engine {
 
 ### 参考
 - [使用 JWT 进行身份校验](https://eddycjy.com/posts/go/gin/2018-02-14-jwt/) 
+- [Gin(十二):配合JWT](https://juejin.cn/post/6844903905424310279)
+- [Gin(十五):JWT使用(续)](https://juejin.cn/post/6844903982624686088)
