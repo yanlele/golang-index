@@ -7,28 +7,33 @@
 package util
 
 import (
+	"gin-example/models"
 	"gin-example/pkg/setting"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/tidwall/gjson"
+	"log"
+	"strings"
 	"time"
 )
-
-var jwtSecret = []byte(setting.JwtSecret)
 
 type Claims struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Id       int    `json:"id"`
 	jwt.StandardClaims
 }
 
-func GenerateToken(username, password string) (string, error) {
+func GenerateToken(username, password string, id int) (string, error) {
+	// 这个地方可以考虑通过密码动态授权
+	var jwtSecret = []byte(setting.JwtSecret + password)
+
 	nowTime := time.Now()
-	
-    // 失效时间
 	expireTime := nowTime.Add(3 * time.Hour)
 
 	claims := Claims{
 		username,
 		password,
+		id,
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
 			Issuer:    "gin-blog",
@@ -41,8 +46,28 @@ func GenerateToken(username, password string) (string, error) {
 }
 
 func ParseToken(token string) (*Claims, error) {
+	payload := strings.Split(token, ".")
+
+	// 获取token 的中间段信息
+	bytes, e := jwt.DecodeSegment(payload[1])
+
+	if e != nil {
+		println(e.Error())
+	}
+	content := ""
+	for i := 0; i < len(bytes); i++ {
+		content += string(bytes[i])
+	}
+
+	id := gjson.Get(content, "id").Int()
+
+	log.Println("id", id)
+	user := models.GetAuthById(id)
+	log.Println("user", user)
+
+	// 通过密码动态授权
 	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return jwtSecret, nil
+		return []byte(setting.JwtSecret + user.Password), nil
 	})
 	if tokenClaims != nil {
 		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
@@ -105,20 +130,26 @@ func Jwt() gin.HandlerFunc {
 package models
 
 type Auth struct {
-	ID int `gorm:"primary_key" json:"id"`
+	ID       int    `gorm:"primary_key" json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
-func CheckAuth(username, password string) bool {
+func CheckAuth(username, password string) (int, error) {
 	var auth Auth
-	db.Select("id").Where(Auth{Username : username, Password : password}).First(&auth)
+	err := db.Select("id").Where(Auth{Username: username, Password: password}).First(&auth).Error
 	if auth.ID > 0 {
-		return true
+		return auth.ID, nil
 	}
-
-	return false
+	return -1, err
 }
+
+func GetAuthById(id int64) Auth {
+	var auth Auth
+	db.Where("id = ?", id).First(&auth)
+	return auth
+}
+
 ```
 
 第二步， 获取auth token 的 api 封装
@@ -150,9 +181,9 @@ func GetAuth(context *gin.Context) {
 	data := make(map[string]interface{})
 	code := e.INVALID_PARAMS
 	if ok {
-		isExist, _ := models.CheckAuth(username, password)
-		if isExist {
-			token, err := util.GenerateToken(username, password)
+		id, _ := models.CheckAuth(username, password)
+		if id > 0 {
+			token, err := util.GenerateToken(username, password, id)
 			code = e.ERROR_AUTH_TOKEN
 
 			if err != nil {
