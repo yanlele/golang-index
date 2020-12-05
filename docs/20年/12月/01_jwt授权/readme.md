@@ -231,6 +231,14 @@ func InitRouter() *gin.Engine {
 首先通过 get 请求 获取到 auth token, 然后接下来 v1 请求部分， 都带上 token 就可以了。                          
 这次实现的是比较简单的部分， 通过 response 和 request query 的方式去鉴权。 正确的方式应该是写入 cookie
 
+
+### 存在问题
+- 每次鉴权都需要都需要重新查询一下 user 信息， 这个时候需要加缓存就可以了
+
+
+
+
+
 ### 参考
 - [使用 JWT 进行身份校验](https://eddycjy.com/posts/go/gin/2018-02-14-jwt/) 
 - [Gin(十二):配合JWT](https://juejin.cn/post/6844903905424310279)
