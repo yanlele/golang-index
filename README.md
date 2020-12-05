@@ -7,6 +7,7 @@
 - [go项目配置](./docs/20年/11月/01_go项目配置/readme.md)
 - [gorm2版本的配置应该怎么写](./docs/20年/11月/02_gorm2版本的配置应该怎么写/readme.md)
 - [jwt实现授权问题](./docs/20年/12月/01_jwt授权/readme.md)
+- [自定义日志输出](./docs/20年/12月/02_自定义日志输出/readmd.md)
 
 
 
