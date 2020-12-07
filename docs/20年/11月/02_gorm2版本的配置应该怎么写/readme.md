@@ -162,4 +162,5 @@ func (Student) TableName() string {
 
 ### 参考文章
 - [配置获取](/docs/20年/11月/01_go项目配置/readme.md)
+- [GormV2 API 探究与最佳实践](https://zhuanlan.zhihu.com/p/281594449)
 
