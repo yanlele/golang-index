@@ -70,22 +70,37 @@ config.Get().DSN
 RUN_MODE = debug
 
 [app]
-PAGE_SIZE = 10
-JWT_SECRET = 23347$040412
+PageSize = 10
+JwtSecret = 233
+
+RuntimeRootPath = runtime/
+
+ImagePrefixUrl = http://127.0.0.1:8000
+ImageSavePath = upload/images/
+# MB
+ImageMaxSize = 5
+ImageAllowExts = .jpg,.jpeg,.png
+
+LogSavePath = logs/
+LogSaveName = log
+LogFileExt = log
+TimeFormat = 20060102
 
 [server]
-HTTP_PORT = 8000
-READ_TIMEOUT = 60
-WRITE_TIMEOUT = 60
+RunMode = debug
+HttpPort = 8080
+ReadTimeout = 60
+WriteTimeout = 60
 
 [database]
-TYPE = mysql
-USER = root
-PASSWORD = 123456
+Type = mysql
+User = root
+Password = 123456
 #127.0.0.1:3306
-HOST = 127.0.0.1:3306
-NAME = blog
-TABLE_PREFIX = blog_
+Host = 127.0.0.1:3306
+Name = blog
+TablePrefix = blog_
+
 ```
 
 解析配置文件： setting.go
@@ -140,6 +155,83 @@ func LoadApp() {
 }
 ```
 
+设置方式2：
+把配置直接使用 mapTo 到一个结构体里面
+```go
+package setting
+
+import (
+	"github.com/go-ini/ini"
+	"log"
+	"time"
+)
+
+type App struct {
+	JwtSecret       string
+	PageSize        int
+	RuntimeRootPath string
+
+	ImagePrefixUrl string
+	ImageSavePath  string
+	ImageMaxSize   int
+	ImageAllowExts []string
+
+	LogSavePath string
+	LogSaveName string
+	LogFileExt  string
+	TimeFormat  string
+}
+
+var AppSetting = &App{}
+
+type Server struct {
+	RunMode      string
+	HttpPort     int
+	ReadTimeout  time.Duration
+	WriteTimeout time.Duration
+}
+
+var ServerSetting = &Server{}
+
+type Database struct {
+	Type        string
+	User        string
+	Password    string
+	Host        string
+	Name        string
+	TablePrefix string
+}
+
+var DatabaseSetting = &Database{}
+
+func Setup() {
+	appConfig, err := ini.Load("conf/app.ini")
+	if err != nil {
+		log.Fatalf("加载初始化文件 'conf/app.ini' 文件失败: %v", err)
+	}
+
+	err = appConfig.Section("app").MapTo(AppSetting)
+	if err != nil {
+		log.Fatalf("config mapTo AppSetting err : %v", err)
+	}
+	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
+
+	err = appConfig.Section("server").MapTo(ServerSetting)
+	if err != nil {
+		log.Fatalf("config mapTo ServerSetting err: %v", err)
+	}
+	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
+	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
+
+	err = appConfig.Section("database").MapTo(DatabaseSetting)
+	if err != nil {
+		log.Fatalf("config mapTo DatabaseSetting err: %v", err)
+	}
+}
+
+```
+
+
 使用：                             
 方式一
 ```go
@@ -159,3 +251,9 @@ password = sec.Key("PASSWORD").String()
 host = sec.Key("HOST").String()
 tablePrefix = sec.Key("TABLE_PREFIX").String()
 ```
+
+方式3：
+```go
+dbName = setting.DatabaseSetting.Name
+```
+
