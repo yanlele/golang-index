@@ -45,6 +45,7 @@
 
 ## 专题篇
 - [gin 系列文章: Hello Gin](https://github.com/youngxhui/GinHello/tree/gin-router)
+- [《跟煎鱼学 Go》 **](https://eddycjy.com/go-categories/)
 
 
 ## 参考项目
