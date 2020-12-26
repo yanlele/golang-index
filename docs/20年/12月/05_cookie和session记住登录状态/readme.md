@@ -178,7 +178,7 @@ func DoLogin(c *gin.Context) {
 }
 ```
 
-清楚 auth, 例如在登出的时候
+清除 auth, 例如在登出的时候
 ```go
 // method : GET
 func Logout(c *gin.Context) {
@@ -191,4 +191,9 @@ func Logout(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/")
 	return
 }
+```
+
+需要获取到 auth 的时候
+```go
+auth := Auth{}.GetAuth(c)
 ```
