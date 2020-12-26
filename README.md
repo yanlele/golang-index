@@ -11,6 +11,7 @@
 - [优雅重启服务](./docs/20年/12月/03_优雅重启服务/readme.md)
 - [文件上传](./docs/20年/12月/04_文件上传/readme.md)
 - [cookie和session记住登录状态](./docs/20年/12月/05_cookie和session记住登录状态/readme.md)
+- [密码加密和解密](./docs/20年/12月/06_密码加密和解密/readme.md)
 - 如何解决圈复杂度问题
 
 
