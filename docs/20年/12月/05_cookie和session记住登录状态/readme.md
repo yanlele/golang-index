@@ -197,3 +197,7 @@ func Logout(c *gin.Context) {
 ```go
 auth := Auth{}.GetAuth(c)
 ```
+
+
+### 参考文章
+- [https://github.com/gin-contrib/sessions](https://github.com/gin-contrib/sessions)

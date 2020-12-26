@@ -9,7 +9,8 @@
 - [jwt实现授权问题](./docs/20年/12月/01_jwt授权/readme.md)
 - [自定义日志输出](./docs/20年/12月/02_自定义日志输出/readmd.md)
 - [优雅重启服务](./docs/20年/12月/03_优雅重启服务/readme.md)
-- [文件上传](./docs/20年/12月/03_优雅重启服务/readme.md)
+- [文件上传](./docs/20年/12月/04_文件上传/readme.md)
+- [cookie和session记住登录状态](./docs/20年/12月/05_cookie和session记住登录状态/readme.md)
 - 如何解决圈复杂度问题
 
 
