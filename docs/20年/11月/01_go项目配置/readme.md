@@ -100,7 +100,6 @@ Password = 123456
 Host = 127.0.0.1:3306
 Name = blog
 TablePrefix = blog_
-
 ```
 
 解析配置文件： setting.go
@@ -228,7 +227,6 @@ func Setup() {
 		log.Fatalf("config mapTo DatabaseSetting err: %v", err)
 	}
 }
-
 ```
 
 
