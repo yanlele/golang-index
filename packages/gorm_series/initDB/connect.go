@@ -9,7 +9,7 @@ import (
 var DB *gorm.DB
 
 func init() {
-	var err error;
+	var err error
 	DB, err = gorm.Open(mysql.New(mysql.Config{
 		DSN:                       "root:123456@tcp(127.0.0.1:3306)/studentSystem?charset=utf8&parseTime=True&loc=Local", // DSN data source name
 		DefaultStringSize:         256,                                                                        // string 类型字段的默认长度
