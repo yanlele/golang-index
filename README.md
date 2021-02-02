@@ -51,6 +51,9 @@
 - [gin 系列文章: Hello Gin](https://github.com/youngxhui/GinHello/tree/gin-router)
 - [《跟煎鱼学 Go》 **](https://eddycjy.com/go-categories/)
 
+### orm框架类
+- [golang常用库：操作数据库的orm框架-gorm基本使用](https://www.cnblogs.com/jiujuan/p/12676195.html)
+
 
 ### 参考项目
 - [Golang 入门实践项目loafer(安全摸鱼+理财)](https://juejin.im/post/6861970298943029262)
