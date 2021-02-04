@@ -38,6 +38,7 @@
 - [结构体struct & 接口Interface & 反射reflect](https://www.cnblogs.com/suoning/p/7145458.html)
 - [写消息队列(golang-channel实现)](https://juejin.im/post/6874194268236447751)
 - [Go语言的30个常用文件操作，总有一个你用的着](https://juejin.im/post/6878117337820561421)
+- uint 类型是啥
 
 ### 网络编程基础
 - [设置cookie的两种方法](https://www.cnblogs.com/limozi/p/8251713.html)
