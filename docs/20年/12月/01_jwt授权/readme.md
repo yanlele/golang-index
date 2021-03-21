@@ -149,7 +149,6 @@ func GetAuthById(id int64) Auth {
 	db.Where("id = ?", id).First(&auth)
 	return auth
 }
-
 ```
 
 第二步， 获取auth token 的 api 封装
