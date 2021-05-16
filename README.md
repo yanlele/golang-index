@@ -15,9 +15,6 @@
 - [gorm联表查询](./docs/20年/12月/07_gorm联表查询/readme.md)
 - [参数验证](./docs/21年/02月/01_参数验证/readme.md)
 - [结构体与map互转](./docs/21年/05月/01、结构体与map互转/readme.md)
-- gorm 分页
-- golang log 包
-- 如何解决圈复杂度问题
 - [基于gin的单元测试](./docs/21年/03月/01_基于gin的单元测试/readme.md)
 
 
@@ -42,7 +39,7 @@
 - [结构体struct & 接口Interface & 反射reflect](https://www.cnblogs.com/suoning/p/7145458.html)
 - [写消息队列(golang-channel实现)](https://juejin.im/post/6874194268236447751)
 - [Go语言的30个常用文件操作，总有一个你用的着](https://juejin.im/post/6878117337820561421)
-- uint 类型是啥
+- [获取当天是星期几]()
 
 ### 网络编程基础
 - [设置cookie的两种方法](https://www.cnblogs.com/limozi/p/8251713.html)
