@@ -39,3 +39,72 @@ func main() {
 	os.Stdout.Write(b)
 }
 ```
+
+### json数据解码
+`func Unmarshal(data []byte, v interface{}) error`                          
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+var jsonBlob = []byte(`[
+{"Name": "Platypus", "Order": "Monotremata"},
+{"Name": "Quoll", "Order": "Dasyuromorphia"}
+]`)
+
+type Animal struct {
+	Name  string
+	Order string
+}
+
+func main() {
+	var animals []Animal
+
+	// func Unmarshal(data []byte, v interface{}) error
+	err := json.Unmarshal(jsonBlob, &animals)
+	if err != nil {
+		fmt.Println("error: ", err)
+	}
+
+	fmt.Printf("%+v", animals)
+}
+```
+
+
+### 手动配置结构体的成员和JSON字段的对应关系
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Message struct {
+	Name string `json:"msg_name"`       // 对应JSON的msg_name
+	Body string `json:"body,omitempty"` // 如果为空置则忽略字段
+	Time int64  `json:"-"`              // 直接忽略字段
+}
+
+func main() {
+	var m = Message{
+		Name: "Alice",
+		Body: "",
+		Time: 1294706395881547000,
+	}
+
+	data, err := json.Marshal(m)
+	if err != nil {
+		fmt.Println("error: ", err)
+	}
+
+	fmt.Println(string(data))
+
+}
+```
+
+### 参考文章
+[https://www.jianshu.com/p/d4a66eaa46d2](https://www.jianshu.com/p/d4a66eaa46d2)

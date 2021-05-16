@@ -30,7 +30,7 @@
 - [golang 数据类型之间的转换](https://blog.csdn.net/sinat_34322082/article/details/81106091)
 - [Golang教程：指针](https://www.cnblogs.com/liuzhongchao/p/9168127.html)
 - [Golang 中的指针 - Pointer](https://www.cnblogs.com/jasonxuli/p/6802289.html)
-- [golang json解析](https://www.jianshu.com/p/d4a66eaa46d2)
+- [golang json解析](./docs/21年/05月/02、json解析/readme.md)
 - [关于GOLANG的chan](https://studygolang.com/articles/7750)
 - [Golang 关于通道 Chan 详解](https://blog.csdn.net/netdxy/article/details/54564436)
 - [select关键字用法](https://www.jianshu.com/p/2a1146dc42c3)
