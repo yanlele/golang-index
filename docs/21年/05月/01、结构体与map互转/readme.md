@@ -52,3 +52,7 @@ func main(){
     MapToStruct()
 }
 ```
+
+
+### 参考文档
+[https://pkg.go.dev/github.com/mitchellh/mapstructure](https://pkg.go.dev/github.com/mitchellh/mapstructure)
