@@ -53,6 +53,7 @@
 ## 专题篇
 - [gin 系列文章: Hello Gin](https://github.com/youngxhui/GinHello/tree/gin-router)
 - [《跟煎鱼学 Go》 **](https://eddycjy.com/go-categories/)
+- [MQ](./book/03、mq)
 
 ### orm框架类
 - [golang常用库：操作数据库的orm框架-gorm基本使用](https://www.cnblogs.com/jiujuan/p/12676195.html)
