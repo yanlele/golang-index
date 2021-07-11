@@ -1,5 +1,12 @@
 ## go项目配置
 
+<!-- toc -->
+
+- [配置方式一：yaml](#%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F%E4%B8%80yaml)
+- [配置方式二：ini](#%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F%E4%BA%8Cini)
+
+<!-- tocstop -->
+
 ### 配置方式一：yaml
 
 首先装包 `go get -u gopkg.in/yaml.v2`
