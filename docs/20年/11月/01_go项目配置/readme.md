@@ -262,3 +262,37 @@ tablePrefix = sec.Key("TABLE_PREFIX").String()
 dbName = setting.DatabaseSetting.Name
 ```
 
+
+### 配置方式三：viper
+#### 最基础的使用
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/viper"
+	"os"
+	"path"
+)
+
+func main() {
+	// 获取项目目录
+	workDir, _ := os.Getwd()
+	
+	v := viper.New()
+	v.SetConfigFile(path.Join(workDir, "src/config.yaml"))
+	if err := v.ReadInConfig(); err != nil {
+		fmt.Println("配置文件读取失败: ", err)
+		return
+	}
+	fmt.Println(v.Get("name"))
+}
+```
+
+其中 `src/config.yaml` 文件配置如下：
+```yaml
+name: "test"
+```
+
+#### 使用结构体
+
