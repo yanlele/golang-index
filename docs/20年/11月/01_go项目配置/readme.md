@@ -264,6 +264,8 @@ dbName = setting.DatabaseSetting.Name
 
 
 ### 配置方式三：viper
+首先需要本地装包： `go get github.com/spf13/viper`
+
 #### 最基础的使用
 ```go
 package main
@@ -295,4 +297,77 @@ name: "test"
 ```
 
 #### 使用结构体
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/viper"
+	"os"
+	"path"
+)
+
+type ServerConfig struct {
+	Name string `json:"name"`
+}
+
+func main() {
+	// 获取项目目录
+	workDir, _ := os.Getwd()
+
+	v := viper.New()
+	v.SetConfigFile(path.Join(workDir, "src/config.yaml"))
+	if err := v.ReadInConfig(); err != nil {
+		fmt.Println("配置文件读取失败: ", err)
+		return
+	}
+
+	serverConfig := ServerConfig{}
+	if err := v.Unmarshal(&serverConfig); err != nil {
+		fmt.Println("解析结构体失败", err)
+		return
+	}
+
+	fmt.Println("结构体： ", serverConfig.Name)
+	fmt.Println(v.Get("name"))
+}
+```
+
+#### 使用环境变量来读取不同的配置
+获取环境变量的方式：
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/viper"
+	"os"
+)
+
+// 这两种方式都可以获取环境变量
+func getEnvInfo(env string) interface{} {
+	viper.AutomaticEnv()
+	return viper.Get(env)
+}
+
+// 这两种方式都可以获取环境变量
+func getEnv(env string) string  {
+	return os.Getenv(env)
+}
+
+func main() {
+	fmt.Println("getEnvInfo: ", getEnvInfo("IS_DEV"))
+	fmt.Println("getEnv: ", getEnv("IS_DEV"))
+}
+```
+运行： 
+```
+$ IS_DEV=123 go run main.go
+getEnvInfo:  123
+getEnv:  123
+```
+
+
+### 参考文档
+- [go项目中环境变量的配置](https://juejin.cn/post/6983290445577060382)
 
