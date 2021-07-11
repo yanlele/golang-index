@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	. "golang-index/book/01、全面学习golang/06、接口/code/02、日志系统/core"
+	. "go-index/book/01、全面学习golang/06、接口/code/02、日志系统/core"
 )
 
 // 创建日志器
