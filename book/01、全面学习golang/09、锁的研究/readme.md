@@ -101,10 +101,68 @@ func main() {
 - 读锁
 - 写锁
 
+demo:               
+```go
+package main
 
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+/*读写锁*/
+
+var (
+	num    int64
+	wg     sync.WaitGroup
+	rwLock sync.RWMutex
+)
+
+func write() {
+	// 加上写锁
+	rwLock.Lock()
+
+	num = num + 1
+
+	time.Sleep(10 * time.Millisecond)
+
+	rwLock.Unlock()
+
+	wg.Done()
+}
+
+func read() {
+	rwLock.RLock()
+
+	time.Sleep(time.Millisecond)
+
+	rwLock.RUnlock()
+
+	wg.Done()
+}
+
+func main() {
+	start := time.Now()
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go write()
+	}
+
+	for i := 0; i < 1000; i++ {
+		wg.Add(1)
+		go read()
+	}
+
+	wg.Wait()
+	end:=time.Now()
+	fmt.Println(end.Sub(start))
+}
+```
 
 
 ### 参考文档
 - [GO的锁和原子操作分享](https://juejin.cn/post/6972846349968474142)
+- [代码参考](https://github.com/yanlele/go-index-core/tree/master/demos/21%E5%B9%B4/07%E6%9C%88/02%E3%80%81%E9%94%81%E7%9A%84%E7%A0%94%E7%A9%B6)
 
 
